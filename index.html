@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>主页</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css">
+    <style type="text/css">
+        .flex-start {
+            display: flex;
+            flex-direction: row;
+        }
+        .color-input, .reg-input {
+            width: 32rem;
+        }
+        .json-output {
+            word-wrap: break-word;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div id="container" class="container">
+        <div class="tabs">
+            <ul>
+              <li :class="{'is-active' : idx === index}" v-for="(e, idx) in tabs" @click="index = idx">
+                <a>{{e}}</a>
+              </li>
+            </ul>
+        </div>
+        <div class="content" v-if="index === 0">
+            <div class="field">
+                <label class="label">输入待转换颜色</label>
+                <div class="control">
+                    <input class="input color-input" v-model="rgbInput" type="text" placeholder="输入: rgb(0, 0, 0) 或 rgba(0, 0, 0, 0) 或 #000000"/>
+                </div>
+            </div>
+            <div class="flex-start">
+                <div :style="'width:1.6rem;border:.07rem solid #eee;background-color:' + colorHex + ';'"></div>&nbsp;&nbsp;
+                <div>{{colorHex}}</div>
+            </div>
+        </div>
+        <div class="content" v-if="index === 1">
+            <div class="field">
+                <label class="label">输入要匹配的字符串</label>
+                <div class="control">
+                    <input class="input reg-input" v-model="regExample" type="text" placeholder="e.g http://hello.world"/>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">输入正则表达式</label>
+                <div class="control">
+                    <input class="input reg-input" v-model="regInput" type="text" placeholder="e.g \d+"/>
+                </div>
+                <p class="help">{{regResult}}</p>
+            </div>
+        </div>
+        <div class="content" v-if="index === 2">
+            <div class="field">
+                <label class="label">输入待格式化json字符串</label>
+                <div class="control">
+                    <textarea class="textarea" v-model="jsonInput"></textarea>
+                </div>
+              </div>
+            <pre class="json-output" v-if="jsonOutput">{{jsonOutput}}</pre>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hex-and-rgba@1.4.2/index.min.js"></script>
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#container',
+            data: {
+                index: 0,
+                tabs: ['颜色转换', '正则验证', 'json格式化'],
+                rgbInput: '',
+                jsonInput: '',
+                regInput: '',
+                regExample: ''
+            },
+            computed: {
+                colorHex: function () {
+                    let input = this.rgbInput.replace(/^\s/g, '').replace(/\s$/g, '')
+                    let patternRGB = new RegExp('\\s*rgb\\(\\s*\\d+\\s*,\\s*\\d+\\s*,\\s*\\d+\\s*\\)')
+                    let patternRGBA = new RegExp('\\s*rgba\\(\\s*\\d+\\s*,\\s*\\d+\\s*,\\s*\\d+\\s*,\\s*[01]{0,1}(\\.\\d+\\s*){0,1}\\)')
+                    if (!this.rgbInput) {
+                        return '未输入'
+                    }
+                    if (patternRGB.test(input) || patternRGBA.test(input)) {
+                        return hexAndRgba.rgbaToAHex(hexAndRgba.rgbaToArray(input))
+                    }
+                    if (hexAndRgba.isValidHex(input)) {
+                        let arr = hexAndRgba.aHexToRgba(input)
+                        if (input.length === 9) {
+                            return 'rgba(' + arr.join(',') + ')'
+                        }
+                        return 'rgb(' + arr.slice(0, 3).join(',') + ')'
+                    }
+                    return '输入错误'
+                },
+                jsonOutput: function () {
+                    if (!this.jsonInput) return ''
+                    let json
+                    try {
+                        json = JSON.stringify(JSON.parse(this.jsonInput),null,2)
+                    } catch (error) {
+                        json = error
+                    }
+                    return json
+                },
+                regResult: function () {
+                    if (!(this.regInput && this.regExample)) {
+                        return null
+                    }
+                    let reg
+                    try {
+                        reg = new RegExp(this.regInput)
+                    } catch (error) {
+                        console.log(error)
+                    }
+                    return reg ? reg.test(this.regExample) : false
+                }
+            }
+        })
+    </script>
+</body>
+</html>
