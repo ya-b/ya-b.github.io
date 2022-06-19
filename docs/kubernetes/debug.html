@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="generator" content="VuePress 2.0.0-beta.48">
+    <style>
+      :root {
+        --c-bg: #fff;
+      }
+      html.dark {
+        --c-bg: #22272e;
+      }
+      html, body {
+        background-color: var(--c-bg);
+      }
+    </style>
+    <script>
+      const userMode = localStorage.getItem('vuepress-color-scheme');
+			const systemDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+			if (userMode === 'dark' || (userMode !== 'light' && systemDarkMode)) {
+				document.documentElement.classList.toggle('dark', true);
+			}
+    </script>
+    <title>编译调试k8s | </title><meta name="description" content="">
+    <link rel="modulepreload" href="/assets/app.9245cea8.js"><link rel="modulepreload" href="/assets/debug.html.906e30e1.js"><link rel="modulepreload" href="/assets/debug.html.9b12e2fa.js"><link rel="prefetch" href="/assets/index.html.f1b35717.js"><link rel="prefetch" href="/assets/streamsource.html.fff6e80f.js"><link rel="prefetch" href="/assets/404.html.ce538133.js"><link rel="prefetch" href="/assets/index.html.be9dab40.js"><link rel="prefetch" href="/assets/streamsource.html.20b9fc07.js"><link rel="prefetch" href="/assets/404.html.a07cdfa1.js"><link rel="prefetch" href="/assets/404.b36e425d.js"><link rel="prefetch" href="/assets/Layout.2a869dbb.js">
+    <link rel="stylesheet" href="/assets/style.357f6b6f.css">
+  </head>
+  <body>
+    <div id="app"><!--[--><div class="theme-container"><!--[--><header class="navbar"><div class="toggle-sidebar-button" title="toggle sidebar" aria-expanded="false" role="button" tabindex="0"><div class="icon" aria-hidden="true"><span></span><span></span><span></span></div></div><span><a href="/" class=""><!----><!----></a></span><div class="navbar-items-wrapper" style=""><!--[--><!--]--><!----><!--[--><!--]--><button class="toggle-color-mode-button" title="toggle color mode"><svg style="" class="icon" focusable="false" viewBox="0 0 32 32"><path d="M16 12.005a4 4 0 1 1-4 4a4.005 4.005 0 0 1 4-4m0-2a6 6 0 1 0 6 6a6 6 0 0 0-6-6z" fill="currentColor"></path><path d="M5.394 6.813l1.414-1.415l3.506 3.506L8.9 10.318z" fill="currentColor"></path><path d="M2 15.005h5v2H2z" fill="currentColor"></path><path d="M5.394 25.197L8.9 21.691l1.414 1.415l-3.506 3.505z" fill="currentColor"></path><path d="M15 25.005h2v5h-2z" fill="currentColor"></path><path d="M21.687 23.106l1.414-1.415l3.506 3.506l-1.414 1.414z" fill="currentColor"></path><path d="M25 15.005h5v2h-5z" fill="currentColor"></path><path d="M21.687 8.904l3.506-3.506l1.414 1.415l-3.506 3.505z" fill="currentColor"></path><path d="M15 2.005h2v5h-2z" fill="currentColor"></path></svg><svg style="display:none;" class="icon" focusable="false" viewBox="0 0 32 32"><path d="M13.502 5.414a15.075 15.075 0 0 0 11.594 18.194a11.113 11.113 0 0 1-7.975 3.39c-.138 0-.278.005-.418 0a11.094 11.094 0 0 1-3.2-21.584M14.98 3a1.002 1.002 0 0 0-.175.016a13.096 13.096 0 0 0 1.825 25.981c.164.006.328 0 .49 0a13.072 13.072 0 0 0 10.703-5.555a1.01 1.01 0 0 0-.783-1.565A13.08 13.08 0 0 1 15.89 4.38A1.015 1.015 0 0 0 14.98 3z" fill="currentColor"></path></svg></button><form class="search-box" role="search"><input type="search" autocomplete="off" spellcheck="false" value><!----></form></div></header><!--]--><div class="sidebar-mask"></div><!--[--><aside class="sidebar"><!----><!--[--><!--]--><ul class="sidebar-items"><!--[--><li><p tabindex="0" class="sidebar-item sidebar-heading">首页 <!----></p><ul style="" class="sidebar-item-children"><!--[--><li><a href="/" class="sidebar-item" aria-label="首页"><!--[--><!--]--> 首页 <!--[--><!--]--></a><!----></li><!--]--></ul></li><li><p tabindex="0" class="sidebar-item sidebar-heading active">kubernetes <!----></p><ul style="" class="sidebar-item-children"><!--[--><li><a aria-current="page" href="/kubernetes/debug.html" class="router-link-active router-link-exact-active router-link-active sidebar-item active" aria-label="编译调试k8s"><!--[--><!--]--> 编译调试k8s <!--[--><!--]--></a><!----></li><!--]--></ul></li><li><p tabindex="0" class="sidebar-item sidebar-heading">spark <!----></p><ul style="" class="sidebar-item-children"><!--[--><li><a href="/spark/streamsource.html" class="sidebar-item" aria-label="Structured Streaming 自定义数据源"><!--[--><!--]--> Structured Streaming 自定义数据源 <!--[--><!--]--></a><!----></li><!--]--></ul></li><!--]--></ul><!--[--><!--]--></aside><!--]--><!--[--><main class="page"><!--[--><!--]--><div class="theme-default-content"><!--[--><!--]--><div><h1 id="编译调试k8s" tabindex="-1"><a class="header-anchor" href="#编译调试k8s" aria-hidden="true">#</a> 编译调试k8s</h1><ol><li>准备(linux环境或wsl子系统)</li></ol><blockquote><p>安装containerd，参考： https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/change-runtime-containerd/#install-containerd</p></blockquote><blockquote><p>禁用交换分区</p></blockquote><ol start="2"><li>下载源码【基于1.24.2】</li></ol><blockquote><p><code>git clone https://github.com/kubernetes/kubernetes.git</code></p></blockquote><ol start="3"><li>安装etcd</li></ol><blockquote><p><code>hack/install-etcd.sh</code></p></blockquote><blockquote><p><code>export PATH=&quot;/dir/to/repo/kubernetes/third_party/etcd:${PATH}&quot;</code></p></blockquote><ol start="4"><li>编译并启动集群</li></ol><blockquote><p><code>./hack/local-up-cluster.sh</code></p></blockquote><p>跳过编译启动集群</p><blockquote><p><code>./hack/local-up-cluster.sh -O</code></p></blockquote><p>编译好的可执行程序在_output/bin目录，默认日志在/tmp目录</p><p>集群启动后，会下载k8s.gcr.io/pause，k8s.gcr.io/coredns/coredns镜像，国内被墙需要挂代理</p><ol start="5"><li>debug kubectl</li></ol><p>编辑.vscode/launch.json:</p><div class="language-text ext-text"><pre class="language-text"><code>{
+    &quot;version&quot;: &quot;0.2.0&quot;,
+    &quot;configurations&quot;: [
+        {
+            &quot;name&quot;: &quot;kubectl&quot;,
+            &quot;type&quot;: &quot;go&quot;,
+            &quot;request&quot;: &quot;launch&quot;,
+            &quot;mode&quot;: &quot;auto&quot;,
+            &quot;program&quot;: &quot;${workspaceFolder}/cmd/kubectl/kubectl.go&quot;,
+            &quot;env&quot;: {
+                &quot;KUBECONFIG&quot;:&quot;/var/run/kubernetes/admin.kubeconfig&quot;
+            },
+            &quot;args&quot;: [&quot;get&quot;,&quot;pods&quot;,&quot;--all-namespaces&quot;,&quot;-v=10&quot;]
+        }
+    ]
+}
+</code></pre></div><ol start="6"><li>debug apiserver 执行以下命令查看apiserver启动参数</li></ol><div class="language-text ext-text"><pre class="language-text"><code>line=`ps -ef|grep kube-apiserver|grep _output/bin`;echo \&quot;${line#*bin/kube-apiserver }\&quot;|sed &#39;s/ /&quot;,\n&quot;/g&#39;
+</code></pre></div><p>根据启动参数，编辑.vscode/launch.json，修改&quot;args&quot;:[]项, --secure-port=6443端口号改为其他值，否则和已启动apiserver端口重复了（或者把已启动的apiserver kill掉）：</p><div class="language-text ext-text"><pre class="language-text"><code>        {
+            &quot;name&quot;: &quot;kube-apiserver&quot;,
+            &quot;type&quot;: &quot;go&quot;,
+            &quot;request&quot;: &quot;launch&quot;,
+            &quot;mode&quot;: &quot;auto&quot;,
+            &quot;program&quot;: &quot;${workspaceFolder}/cmd/kube-apiserver/apiserver.go&quot;,
+            &quot;args&quot;: [&quot;--authorization-mode=Node,RBAC&quot;,
+                &quot;--cloud-provider=&quot;,
+                &quot;--cloud-config=&quot;,
+                &quot;--v=3&quot;,
+                &quot;--vmodule=&quot;,
+                &quot;--audit-policy-file=/tmp/kube-audit-policy-file&quot;,
+                &quot;--audit-log-path=/tmp/kube-apiserver-audit.log&quot;,
+                &quot;--authorization-webhook-config-file=&quot;,
+                &quot;--authentication-token-webhook-config-file=&quot;,
+                &quot;--cert-dir=/var/run/kubernetes&quot;,
+                &quot;--egress-selector-config-file=/tmp/kube_egress_selector_configuration.yaml&quot;,
+                &quot;--client-ca-file=/var/run/kubernetes/client-ca.crt&quot;,
+                &quot;--kubelet-client-certificate=/var/run/kubernetes/client-kube-apiserver.crt&quot;,
+                &quot;--kubelet-client-key=/var/run/kubernetes/client-kube-apiserver.key&quot;,
+                &quot;--service-account-key-file=/tmp/kube-serviceaccount.key&quot;,
+                &quot;--service-account-lookup=true&quot;,
+                &quot;--service-account-issuer=https://kubernetes.default.svc&quot;,
+                &quot;--service-account-jwks-uri=https://kubernetes.default.svc/openid/v1/jwks&quot;,
+                &quot;--service-account-signing-key-file=/tmp/kube-serviceaccount.key&quot;,
+                &quot;--enable-admission-plugins=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,Priority,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota,NodeRestriction&quot;,
+                &quot;--disable-admission-plugins=&quot;,
+                &quot;--admission-control-config-file=&quot;,
+                &quot;--bind-address=0.0.0.0&quot;,
+                &quot;--secure-port=16443&quot;,
+                &quot;--tls-cert-file=/var/run/kubernetes/serving-kube-apiserver.crt&quot;,
+                &quot;--tls-private-key-file=/var/run/kubernetes/serving-kube-apiserver.key&quot;,
+                &quot;--storage-backend=etcd3&quot;,
+                &quot;--storage-media-type=application/vnd.kubernetes.protobuf&quot;,
+                &quot;--etcd-servers=http://127.0.0.1:2379&quot;,
+                &quot;--service-cluster-ip-range=10.0.0.0/24&quot;,
+                &quot;--feature-gates=AllAlpha=false&quot;,
+                &quot;--external-hostname=localhost&quot;,
+                &quot;--requestheader-username-headers=X-Remote-User&quot;,
+                &quot;--requestheader-group-headers=X-Remote-Group&quot;,
+                &quot;--requestheader-extra-headers-prefix=X-Remote-Extra-&quot;,
+                &quot;--requestheader-client-ca-file=/var/run/kubernetes/request-header-ca.crt&quot;,
+                &quot;--requestheader-allowed-names=system:auth-proxy&quot;,
+                &quot;--proxy-client-cert-file=/var/run/kubernetes/client-auth-proxy.crt&quot;,
+                &quot;--proxy-client-key-file=/var/run/kubernetes/client-auth-proxy.key&quot;,
+                &quot;--cors-allowed-origins=/127.0.0.1(:[0-9]+)?$,/localhost(:[0-9]+)?$&quot;]
+        }
+</code></pre></div></div><!--[--><!--]--></div><footer class="page-meta"><!----><div class="meta-item last-updated"><span class="meta-item-label">Last Updated: </span><!----></div><div class="meta-item contributors"><span class="meta-item-label">Contributors: </span><span class="meta-item-info"><!--[--><!--[--><span class="contributor" title="email: ya-b@outlook.com">YangBo</span><!----><!--]--><!--]--></span></div></footer><!----><!--[--><!--]--></main><!--]--></div><!----><!--]--></div>
+    <script type="module" src="/assets/app.9245cea8.js" defer></script>
+  </body>
+</html>
