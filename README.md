@@ -3,5 +3,5 @@
 ```
 npm install
 npx vuepress dev src
-npx vuepress build src --dest docs
+npx vuepress build src --dest dist
 ```

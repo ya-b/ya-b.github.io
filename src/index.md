@@ -1,7 +1,7 @@
 # 首页
 
 ## 正则校验
-输入要匹配的字符串:
+输入字符串:
 
 <input class="input reg-input" v-model="regExample" type="text" placeholder="e.g http://ya-b.github.io"/>
 
