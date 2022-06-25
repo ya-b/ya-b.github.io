@@ -1,6 +1,7 @@
 const { defaultTheme } = require('@vuepress/theme-default')
 const { nprogressPlugin } = require('@vuepress/plugin-nprogress')
 const { searchPlugin } = require('@vuepress/plugin-search')
+const { googleAnalyticsPlugin } = require('@vuepress/plugin-google-analytics')
 
 module.exports = {
   theme: defaultTheme({
@@ -29,6 +30,7 @@ module.exports = {
   }),
   plugins: [
     nprogressPlugin(),
-    searchPlugin({ hotKeys: '' })
+    searchPlugin({ hotKeys: '' }),
+    googleAnalyticsPlugin({ id: process.env.MEASUREMENTID }),
   ],
 }
