@@ -1,0 +1,1 @@
+const t=JSON.parse('{"key":"v-f1ca5f5a","path":"/spark/streamsource.html","title":"Structured Streaming \u81EA\u5B9A\u4E49\u6570\u636E\u6E90","lang":"en-US","frontmatter":{},"excerpt":"","headers":[],"git":{"updatedTime":1656157378000,"contributors":[{"name":"YangBo","email":"ya-b@outlook.com","commits":1}]},"filePathRelative":"spark/streamsource.md"}');export{t as data};
